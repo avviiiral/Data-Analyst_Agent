@@ -21,9 +21,13 @@ from app.api.v1.kpi import router as kpi_router
 from app.api.v1.outliers import router as outliers_router
 from app.api.v1.automl import router as automl_router
 from app.api.v1.ml import router as ml_router
+from app.api.v1.copilot import router as copilot_router
+from app.api.v1.questions import router as questions_router
 
 api_router = APIRouter(prefix="/api/v1")
 
+api_router.include_router(copilot_router)
+api_router.include_router(questions_router)
 api_router.include_router(ml_router)
 api_router.include_router(automl_router)
 api_router.include_router(forecast_router)
