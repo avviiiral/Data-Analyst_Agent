@@ -16,9 +16,15 @@ from app.api.v1.schema import router as schema_router
 from app.api.v1.analytics import router as analytics_router
 from app.api.v1.charts import router as charts_router
 from app.api.v1.reports import router as reports_router
+from app.api.v1.forecast import router as forecast_router
+from app.api.v1.kpi import router as kpi_router
+from app.api.v1.outliers import router as outliers_router
 
 api_router = APIRouter(prefix="/api/v1")
 
+api_router.include_router(forecast_router)
+api_router.include_router(kpi_router)
+api_router.include_router(outliers_router)
 api_router.include_router(charts_router)
 api_router.include_router(reports_router)
 api_router.include_router(analytics_router)
