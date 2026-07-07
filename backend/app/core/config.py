@@ -1,5 +1,4 @@
-from pydantic_settings import BaseSettings
-from pydantic_settings import SettingsConfigDict
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
@@ -8,6 +7,12 @@ class Settings(BaseSettings):
     DEBUG: bool = True
 
     DATABASE_URL: str = "sqlite:///./insightforge.db"
+
+    SECRET_KEY: str = "change_this_in_production"
+
+    ALGORITHM: str = "HS256"
+
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
 
     model_config = SettingsConfigDict(
         env_file=".env",
