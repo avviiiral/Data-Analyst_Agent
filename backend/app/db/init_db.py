@@ -1,7 +1,7 @@
 from app.db.base import Base
 from app.db.session import engine
 
-# Import all models here
+from app.models.role import Role
 from app.models.user import User
 
 
