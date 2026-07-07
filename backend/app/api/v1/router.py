@@ -10,6 +10,7 @@ from app.api.v1.users import router as users_router
 from app.api.v1.organizations import router as organizations_router
 from app.api.v1.projects import router as projects_router
 from app.api.v1.datasets import router as datasets_router
+from app.api.v1.upload import router as upload_router
 
 api_router = APIRouter(prefix="/api/v1")
 
@@ -23,3 +24,4 @@ api_router.include_router(system_router)
 api_router.include_router(roles_router)
 api_router.include_router(organizations_router)
 api_router.include_router(projects_router)
+api_router.include_router(upload_router)

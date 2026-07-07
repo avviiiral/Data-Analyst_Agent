@@ -2,6 +2,7 @@ from app.db.base import Base
 from app.db.session import engine
 
 from app.models.dataset import Dataset
+from app.models.file_asset import FileAsset
 from app.models.organization import Organization
 from app.models.project import Project
 from app.models.role import Role
