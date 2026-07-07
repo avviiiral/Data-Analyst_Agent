@@ -2,6 +2,7 @@ from app.db.base import Base
 from app.db.session import engine
 
 from app.models.organization import Organization
+from app.models.project import Project
 from app.models.role import Role
 from app.models.user import User
 
