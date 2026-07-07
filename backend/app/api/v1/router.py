@@ -13,9 +13,11 @@ from app.api.v1.datasets import router as datasets_router
 from app.api.v1.upload import router as upload_router
 from app.api.v1.profiler import router as profiler_router
 from app.api.v1.schema import router as schema_router
+from app.api.v1.analytics import router as analytics_router
 
 api_router = APIRouter(prefix="/api/v1")
 
+api_router.include_router(analytics_router)
 api_router.include_router(schema_router)
 api_router.include_router(profiler_router)
 api_router.include_router(datasets_router)
