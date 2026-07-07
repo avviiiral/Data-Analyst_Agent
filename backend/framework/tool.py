@@ -1,0 +1,14 @@
+from __future__ import annotations
+
+from dataclasses import dataclass
+from typing import Callable, Any
+
+
+@dataclass
+class Tool:
+
+    name: str
+
+    description: str
+
+    function: Callable[..., Any]
