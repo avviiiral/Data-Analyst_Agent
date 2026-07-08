@@ -12,9 +12,9 @@ router = APIRouter(
 @router.post("/")
 def recommend_charts(dataset_id: str):
 
-    dataframe = DatasetRegistry.get(dataset_id)
+    dataset = DatasetRegistry.get(dataset_id)
 
-    if dataframe is None:
+    if dataset is None:
         raise HTTPException(
             status_code=404,
             detail="Dataset not found.",
@@ -22,5 +22,5 @@ def recommend_charts(dataset_id: str):
 
     return {
         "dataset_id": dataset_id,
-        "recommended_charts": ChartRecommender().recommend(dataframe),
+        "recommended_charts": ChartRecommender().recommend(dataset.dataframe),
     }

@@ -11,15 +11,15 @@ router = APIRouter(
 @router.post("/")
 def automl(dataset_id: str):
 
-    dataframe = DatasetRegistry.get(dataset_id)
+    dataset = DatasetRegistry.get(dataset_id)
 
-    if dataframe is None:
+    if dataset is None:
         raise HTTPException(
             status_code=404,
             detail="Dataset not found.",
         )
 
-    numeric_columns = dataframe.select_dtypes(include="number").columns.tolist()
+    numeric_columns = dataset.dataframe.select_dtypes(include="number").columns.tolist()
 
     if len(numeric_columns) < 2:
         return {
@@ -31,7 +31,7 @@ def automl(dataset_id: str):
 
     features = numeric_columns[:-1]
 
-    rows = len(dataframe)
+    rows = len(dataset.dataframe)
 
     if rows < 500:
         algorithm = "Linear Regression / Logistic Regression"

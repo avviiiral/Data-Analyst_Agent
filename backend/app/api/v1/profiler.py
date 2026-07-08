@@ -16,9 +16,9 @@ router = APIRouter(
 @router.post("/")
 def profile_dataset(dataset_id: str):
 
-    dataframe = DatasetRegistry.get(dataset_id)
+    dataset = DatasetRegistry.get(dataset_id)
 
-    if dataframe is None:
+    if dataset is None:
         raise HTTPException(
             status_code=404,
             detail="Dataset not found.",
@@ -26,9 +26,9 @@ def profile_dataset(dataset_id: str):
 
     return {
         "dataset_id": dataset_id,
-        "profile": DatasetProfiler().profile(dataframe),
-        "statistics": StatisticsService().summary(dataframe),
-        "missing_values": MissingValueService().analyze(dataframe),
-        "correlation": CorrelationService().correlation(dataframe),
-        "outliers": OutlierService().detect(dataframe),
+        "profile": DatasetProfiler().profile(dataset.dataframe),
+        "statistics": StatisticsService().summary(dataset.dataframe),
+        "missing_values": MissingValueService().analyze(dataset.dataframe),
+        "correlation": CorrelationService().correlation(dataset.dataframe),
+        "outliers": OutlierService().detect(dataset.dataframe),
     }

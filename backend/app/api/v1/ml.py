@@ -11,15 +11,15 @@ router = APIRouter(
 @router.post("/")
 def run_ml(dataset_id: str):
 
-    dataframe = DatasetRegistry.get(dataset_id)
+    dataset = DatasetRegistry.get(dataset_id)
 
-    if dataframe is None:
+    if dataset is None:
         raise HTTPException(
             status_code=404,
             detail="Dataset not found.",
         )
 
-    numeric_columns = dataframe.select_dtypes(include="number").columns.tolist()
+    numeric_columns = dataset.dataframe.select_dtypes(include="number").columns.tolist()
 
     if len(numeric_columns) < 2:
         return {
@@ -36,7 +36,7 @@ def run_ml(dataset_id: str):
         "status": "ready",
         "target_column": target,
         "feature_columns": features,
-        "rows": len(dataframe),
+        "rows": len(dataset.dataframe),
         "algorithm": "Auto Detect (coming next)",
         "message": "Dataset is ready for ML training."
     }

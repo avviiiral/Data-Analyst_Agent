@@ -14,9 +14,9 @@ def copilot(
     question: str,
 ):
 
-    dataframe = DatasetRegistry.get(dataset_id)
+    dataset = DatasetRegistry.get(dataset_id)
 
-    if dataframe is None:
+    if dataset is None:
         raise HTTPException(
             status_code=404,
             detail="Dataset not found.",
@@ -25,21 +25,21 @@ def copilot(
     question_lower = question.lower()
 
     if "rows" in question_lower:
-        answer = f"The dataset contains {len(dataframe)} rows."
+        answer = f"The dataset contains {len(dataset.dataframe)} rows."
 
     elif "columns" in question_lower:
-        answer = f"The dataset contains {len(dataframe.columns)} columns."
+        answer = f"The dataset contains {len(dataset.dataframe.columns)} columns."
 
     elif "missing" in question_lower:
         answer = (
             f"The dataset contains "
-            f"{int(dataframe.isna().sum().sum())} missing values."
+            f"{int(dataset.dataframe.isna().sum().sum())} missing values."
         )
 
     elif "duplicate" in question_lower:
         answer = (
             f"The dataset contains "
-            f"{int(dataframe.duplicated().sum())} duplicate rows."
+            f"{int(dataset.dataframe.duplicated().sum())} duplicate rows."
         )
 
     else:

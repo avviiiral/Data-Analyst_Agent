@@ -12,9 +12,9 @@ router = APIRouter(
 @router.post("/")
 def report(dataset_id: str):
 
-    dataframe = DatasetRegistry.get(dataset_id)
+    dataset = DatasetRegistry.get(dataset_id)
 
-    if dataframe is None:
+    if dataset is None:
         raise HTTPException(
             status_code=404,
             detail="Dataset not found.",
@@ -22,5 +22,5 @@ def report(dataset_id: str):
 
     return {
         "dataset_id": dataset_id,
-        "report": ReportService().generate(dataframe),
+        "report": ReportService().generate(dataset.dataframe),
     }

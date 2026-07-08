@@ -16,9 +16,9 @@ router = APIRouter(
 @router.post("/")
 def analytics(dataset_id: str):
 
-    dataframe = DatasetRegistry.get(dataset_id)
+    dataset = DatasetRegistry.get(dataset_id)
 
-    if dataframe is None:
+    if dataset is None:
         raise HTTPException(
             status_code=404,
             detail="Dataset not found.",
@@ -26,9 +26,9 @@ def analytics(dataset_id: str):
 
     return {
         "dataset_id": dataset_id,
-        "statistics": StatisticsService().summary(dataframe),
-        "missing_values": MissingValueService().analyze(dataframe),
-        "correlation": CorrelationService().correlation(dataframe),
-        "insights": InsightGenerator().generate(dataframe),
-        "recommendations": RecommendationEngine().recommend(dataframe),
+        "statistics": StatisticsService().summary(dataset.dataframe),
+        "missing_values": MissingValueService().analyze(dataset.dataframe),
+        "correlation": CorrelationService().correlation(dataset.dataframe),
+        "insights": InsightGenerator().generate(dataset.dataframe),
+        "recommendations": RecommendationEngine().recommend(dataset.dataframe),
     }

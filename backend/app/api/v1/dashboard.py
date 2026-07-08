@@ -20,9 +20,9 @@ router = APIRouter(
 @router.post("/")
 def dashboard(dataset_id: str):
 
-    dataframe = DatasetRegistry.get(dataset_id)
+    dataset = DatasetRegistry.get(dataset_id)
 
-    if dataframe is None:
+    if dataset is None:
         raise HTTPException(
             status_code=404,
             detail="Dataset not found.",
@@ -30,13 +30,13 @@ def dashboard(dataset_id: str):
 
     return {
         "dataset_id": dataset_id,
-        "profile": DatasetProfiler().profile(dataframe),
-        "schema": SchemaDetector().detect(dataframe),
-        "statistics": StatisticsService().summary(dataframe),
-        "correlation": CorrelationService().correlation(dataframe),
-        "missing_values": MissingValueService().analyze(dataframe),
-        "insights": InsightGenerator().generate(dataframe),
-        "recommendations": RecommendationEngine().recommend(dataframe),
-        "recommended_charts": ChartRecommender().recommend(dataframe),
-        "dataset_health_score": DatasetHealth().score(dataframe),
+        "profile": DatasetProfiler().profile(dataset.dataframe),
+        "schema": SchemaDetector().detect(dataset.dataframe),
+        "statistics": StatisticsService().summary(dataset.dataframe),
+        "correlation": CorrelationService().correlation(dataset.dataframe),
+        "missing_values": MissingValueService().analyze(dataset.dataframe),
+        "insights": InsightGenerator().generate(dataset.dataframe),
+        "recommendations": RecommendationEngine().recommend(dataset.dataframe),
+        "recommended_charts": ChartRecommender().recommend(dataset.dataframe),
+        "dataset_health_score": DatasetHealth().score(dataset.dataframe),
     }

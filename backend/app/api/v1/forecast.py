@@ -12,9 +12,9 @@ router = APIRouter(
 @router.post("/")
 def forecast(dataset_id: str):
 
-    dataframe = DatasetRegistry.get(dataset_id)
+    dataset = DatasetRegistry.get(dataset_id)
 
-    if dataframe is None:
+    if dataset is None:
         raise HTTPException(
             status_code=404,
             detail="Dataset not found.",
@@ -22,5 +22,5 @@ def forecast(dataset_id: str):
 
     return {
         "dataset_id": dataset_id,
-        "forecast": ForecastService().forecast(dataframe),
+        "forecast": ForecastService().forecast(dataset.dataframe),
     }
