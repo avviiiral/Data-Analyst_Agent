@@ -1,4 +1,6 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
+
+from app.services.dataset_registry import DatasetRegistry
 
 router = APIRouter(
     prefix="/copilot",
@@ -6,9 +8,48 @@ router = APIRouter(
 )
 
 
-@router.get("/")
-def copilot():
+@router.post("/")
+def copilot(
+    dataset_id: str,
+    question: str,
+):
+
+    dataframe = DatasetRegistry.get(dataset_id)
+
+    if dataframe is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Dataset not found.",
+        )
+
+    question_lower = question.lower()
+
+    if "rows" in question_lower:
+        answer = f"The dataset contains {len(dataframe)} rows."
+
+    elif "columns" in question_lower:
+        answer = f"The dataset contains {len(dataframe.columns)} columns."
+
+    elif "missing" in question_lower:
+        answer = (
+            f"The dataset contains "
+            f"{int(dataframe.isna().sum().sum())} missing values."
+        )
+
+    elif "duplicate" in question_lower:
+        answer = (
+            f"The dataset contains "
+            f"{int(dataframe.duplicated().sum())} duplicate rows."
+        )
+
+    else:
+        answer = (
+            "Natural language AI Copilot "
+            "will be connected to the Agent Framework in a later milestone."
+        )
+
     return {
-        "status": "ready",
-        "model": "InsightForge AI",
+        "dataset_id": dataset_id,
+        "question": question,
+        "answer": answer,
     }

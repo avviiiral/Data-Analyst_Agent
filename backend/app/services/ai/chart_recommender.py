@@ -10,7 +10,6 @@ class ChartRecommender:
 
             if "int" in dtype or "float" in dtype:
                 recommendations[column] = "Histogram"
-
             else:
                 recommendations[column] = "Bar Chart"
 

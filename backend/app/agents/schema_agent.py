@@ -5,7 +5,7 @@ from backend.framework.base_agent import (
     AgentResponse,
     BaseAgent,
 )
-from backend.preprocessing.schema_detector import SchemaDetector
+from app.services.schema_detector import SchemaDetector
 
 
 class SchemaAgent(BaseAgent):
@@ -16,8 +16,11 @@ class SchemaAgent(BaseAgent):
         self,
         context: AgentContext,
     ) -> AgentResponse:
+        
+        if context.dataset is None:
+            raise ValueError("Dataset is required.")
 
-        report = SchemaDetector.detect(
+        report = SchemaDetector().detect(
             context.dataset.dataframe
         )
 

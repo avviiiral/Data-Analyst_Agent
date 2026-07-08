@@ -16,6 +16,9 @@ class OutlierAgent(BaseAgent):
         self,
         context: AgentContext,
     ) -> AgentResponse:
+        
+        if context.dataset is None:
+            raise ValueError("Dataset is required.")
 
         report = OutlierAnalyzer.analyze(
             context.dataset

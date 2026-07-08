@@ -17,8 +17,11 @@ class HealthAgent(BaseAgent):
         context: AgentContext,
     ) -> AgentResponse:
 
+        if context.dataset is None:
+            raise ValueError("Dataset is required.")
+
         report = DatasetHealthAnalyzer.analyze(
-            context.dataset
+            context.dataset,
         )
 
         return AgentResponse(

@@ -16,6 +16,9 @@ class SummaryAgent(BaseAgent):
         self,
         context: AgentContext,
     ) -> AgentResponse:
+        
+        if context.dataset is None:
+            raise ValueError("Dataset is required.")
 
         report = ExecutiveSummaryGenerator.generate(
             context.dataset

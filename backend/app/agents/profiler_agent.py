@@ -17,8 +17,11 @@ class ProfilerAgent(BaseAgent):
         context: AgentContext,
     ) -> AgentResponse:
 
+        if context.dataset is None:
+            raise ValueError("Dataset is required.")
+
         report = DataProfiler.profile(
-            context.dataset
+            context.dataset,
         )
 
         return AgentResponse(

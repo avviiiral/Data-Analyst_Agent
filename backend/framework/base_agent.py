@@ -4,24 +4,37 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from typing import Any
 
+from backend.datasets.dataset import Dataset
+
 
 @dataclass
 class AgentContext:
-    dataset: Any | None = None
+
+    dataset: Dataset | None = None
+
     memory: dict[str, Any] = field(default_factory=dict)
 
     collaboration: Any | None = None
 
-    def result(self, agent: str):
+    def result(
+        self,
+        agent: str,
+    ):
         if self.collaboration is None:
             return None
+
         return self.collaboration.get_result(agent)
+
 
 @dataclass
 class AgentResponse:
+
     success: bool
+
     agent: str
+
     message: str
+
     data: Any = None
 
 

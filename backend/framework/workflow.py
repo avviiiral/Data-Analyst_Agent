@@ -8,16 +8,18 @@ class Workflow:
 
     def run(
         self,
-        tasks: list[str],
+        tasks,
         dataset=None,
         memory=None,
     ):
 
-        mapping = selector.select(tasks)
-
         responses = []
 
-        for task, agent in mapping.items():
+        for task in tasks:
+
+            task_name = task.name if hasattr(task, "name") else task
+
+            agent = selector.select([task_name])[task_name]
 
             response = executor.execute(
                 agent_name=agent,
@@ -27,7 +29,7 @@ class Workflow:
 
             responses.append(
                 {
-                    "task": task,
+                    "task": task_name,
                     "agent": agent,
                     "response": response,
                 }

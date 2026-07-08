@@ -12,7 +12,7 @@ class AgentCoordinator:
     ):
 
         results = runtime.run(
-            tasks=session.plan,
+            tasks=[task.name for task in session.plan],
             dataset=session.dataset,
             memory=session.metadata,
         )

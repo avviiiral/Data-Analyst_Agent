@@ -3,14 +3,10 @@ import pandas as pd
 
 class DatasetHealth:
     def score(self, dataframe: pd.DataFrame):
-        missing = dataframe.isna().sum().sum()
+        missing = int(dataframe.isna().sum().sum())
 
-        duplicates = dataframe.duplicated().sum()
+        duplicates = int(dataframe.duplicated().sum())
 
-        score = 100
+        score = 100 - missing - duplicates
 
-        score -= int(missing)
-
-        score -= int(duplicates)
-
-        return max(score, 0)
+        return int(max(score, 0))

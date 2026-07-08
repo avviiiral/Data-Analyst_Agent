@@ -1,4 +1,7 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
+
+from app.services.dataset_registry import DatasetRegistry
+from app.services.schema_detector import SchemaDetector
 
 router = APIRouter(
     prefix="/schema",
@@ -6,8 +9,18 @@ router = APIRouter(
 )
 
 
-@router.get("/")
-def schema_information():
+@router.post("/")
+def detect_schema(dataset_id: str):
+
+    dataframe = DatasetRegistry.get(dataset_id)
+
+    if dataframe is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Dataset not found.",
+        )
+
     return {
-        "message": "Schema endpoint ready."
+        "dataset_id": dataset_id,
+        "schema": SchemaDetector().detect(dataframe),
     }

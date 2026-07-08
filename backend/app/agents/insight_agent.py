@@ -17,8 +17,11 @@ class InsightAgent(BaseAgent):
         context: AgentContext,
     ) -> AgentResponse:
 
+        if context.dataset is None:
+            raise ValueError("Dataset is required.")
+
         report = InsightAnalyzer.analyze(
-            context.dataset
+            context.dataset,
         )
 
         return AgentResponse(

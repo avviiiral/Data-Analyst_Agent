@@ -16,6 +16,9 @@ class KPIAgent(BaseAgent):
         self,
         context: AgentContext,
     ) -> AgentResponse:
+        
+        if context.dataset is None:
+            raise ValueError("Dataset is required.")
 
         report = BusinessKPIAnalyzer.analyze(
             context.dataset

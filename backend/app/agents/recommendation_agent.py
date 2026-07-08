@@ -16,6 +16,9 @@ class RecommendationAgent(BaseAgent):
         self,
         context: AgentContext,
     ) -> AgentResponse:
+        
+        if context.dataset is None:
+            raise ValueError("Dataset is required.")
 
         report = RecommendationEngine.analyze(
             context.dataset

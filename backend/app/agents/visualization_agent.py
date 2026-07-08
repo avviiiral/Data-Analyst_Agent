@@ -5,7 +5,7 @@ from backend.framework.base_agent import (
     AgentResponse,
     BaseAgent,
 )
-from backend.visualization.chart_selector import ChartSelector
+from app.services.ai.chart_recommender import ChartRecommender
 
 
 class VisualizationAgent(BaseAgent):
@@ -16,8 +16,11 @@ class VisualizationAgent(BaseAgent):
         self,
         context: AgentContext,
     ) -> AgentResponse:
+        
+        if context.dataset is None:
+            raise ValueError("Dataset is required.")
 
-        chart = ChartSelector.recommend(
+        chart = ChartRecommender().recommend(
             context.dataset.dataframe
         )
 

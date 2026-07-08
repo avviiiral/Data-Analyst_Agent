@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from backend.framework.agent_session import AgentSession
 from backend.framework.coordinator import coordinator
+from backend.framework.planning.planning_engine import planning_engine
 
 
 class InsightForgeEngine:
@@ -9,8 +10,7 @@ class InsightForgeEngine:
     def execute(
         self,
         query: str,
-        dataset,
-        tasks: list[str],
+        dataset=None,
         metadata: dict | None = None,
     ):
 
@@ -29,7 +29,9 @@ class InsightForgeEngine:
                     value,
                 )
 
-        for task in tasks:
+        plan, _ = planning_engine.create_plan(query)
+
+        for task in plan.tasks:
 
             session.add_task(task)
 
