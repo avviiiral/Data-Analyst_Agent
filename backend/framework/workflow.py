@@ -19,7 +19,10 @@ class Workflow:
 
             task_name = task.name if hasattr(task, "name") else task
 
-            agent = selector.select([task_name])[task_name]
+            if hasattr(task, "agent"):
+                agent = task.agent
+            else:
+                agent = selector.select([task_name])[task_name]
 
             response = executor.execute(
                 agent_name=agent,
