@@ -18,6 +18,6 @@ Dependencies are listed in `backend/requirements.txt`. This repository has no fr
 
 ## Related
 
-- [InsightForge_AI](https://github.com/avviiiral/InsightForge_AI): a documented data-analyst agent platform from the same author.
+- [InsightForge-AI](https://github.com/avviiiral/InsightForge-AI): a documented data-analyst agent platform from the same author.
 - [AI Data Analyst Agent case study](https://aviral-goyal.netlify.app/projects/ai-data-analyst-agent.html)
 - Author: [Aviral Goyal](https://aviral-goyal.netlify.app/) · [GitHub](https://github.com/avviiiral) · [LinkedIn](https://www.linkedin.com/in/avviiiral/)
